@@ -38,6 +38,7 @@ class DetailActivity : AppCompatActivity() {
                     }
 
                     binding.name.text = user.name
+
                 }
                 is Result.Error -> {
                     Toast.makeText(this, it.exception.message.toString(), Toast.LENGTH_SHORT).show()
