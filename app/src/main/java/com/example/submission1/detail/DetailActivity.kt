@@ -1,25 +1,33 @@
 package com.example.submission1.detail
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.submission1.R
+import com.example.submission1.data.local.DbModul
 import com.example.submission1.data.model.ResponseDetailUser
+import com.example.submission1.data.model.ResponseUserGithub
 import com.example.submission1.databinding.ActivityDetailBinding
 import com.example.submission1.detail.follow.FollowsFragment
 import com.example.submission1.utils.Result
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private val viewModel by viewModels<DetailViewModel>()
+    private val viewModel by viewModels<DetailViewModel> {
+        DetailViewModel.Factory(DbModul(this))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +35,8 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val username = intent.getStringExtra("username") ?: ""
+        val item = intent.getParcelableExtra<ResponseUserGithub.Item>("item")
+        val username = item?.login ?: ""
 
         viewModel.resultDetailUser.observe(this) {
             when (it) {
@@ -38,7 +47,9 @@ class DetailActivity : AppCompatActivity() {
                     }
 
                     binding.name.text = user.name
-
+                    binding.username.text = user.login
+                    binding.followers.text = user.followers.toString()
+                    binding.following.text = user.following.toString()
                 }
                 is Result.Error -> {
                     Toast.makeText(this, it.exception.message.toString(), Toast.LENGTH_SHORT).show()
@@ -85,6 +96,22 @@ class DetailActivity : AppCompatActivity() {
         })
 
         viewModel.getFollowers(username)
+
+        viewModel.resultSuccessFavorite.observe(this) {
+            binding.btnFavorite.changeIconColor(R.color.red)
+        }
+
+        viewModel.resultDeleteFavorite.observe(this) {
+            binding.btnFavorite.changeIconColor(R.color.white)
+        }
+
+        binding.btnFavorite.setOnClickListener {
+            viewModel.setFavorite(item)
+        }
+
+        viewModel.findFavorite(item?.id ?: 0) {
+            binding.btnFavorite.changeIconColor(R.color.red)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -95,4 +122,8 @@ class DetailActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+}
+
+fun FloatingActionButton.changeIconColor(@ColorRes color: Int) {
+    imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this.context, color))
 }

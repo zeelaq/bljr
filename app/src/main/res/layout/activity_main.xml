@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:padding="4dp"
         app:iconifiedByDefault="false"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:defaultQueryHint="Cari username"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView5"
