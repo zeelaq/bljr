@@ -12,12 +12,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.submission1.data.local.SettingPreferences
-import com.example.submission1.data.model.ResponseUserGithub
+import com.example.submission1.data.local.PreferencesTheme
+import com.example.submission1.data.responsemodel.ResponseUserGithub
 import com.example.submission1.databinding.ActivityMainBinding
 import com.example.submission1.detail.DetailActivity
 import com.example.submission1.favorite.FavoriteActivity
-import com.example.submission1.setting.SettingActivity
+import com.example.submission1.theme.ThemeActivity
 import com.example.submission1.utils.Result
 
 class MainActivity : ComponentActivity() {
@@ -27,14 +27,14 @@ class MainActivity : ComponentActivity() {
     private val adapter by lazy {
         UserAdapter { user ->
             Intent(this, DetailActivity:: class.java).apply {
-                putExtra("item", user)
+                putExtra("akun", user)
                 startActivity(this)
             }
         }
     }
 
     private val viewModel by viewModels<MainViewModel> {
-        MainViewModel.Factory(SettingPreferences(this))
+        MainViewModel.Factory(PreferencesTheme(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +75,7 @@ class MainActivity : ComponentActivity() {
                     Toast.makeText(this, it.exception.message.toString(), Toast.LENGTH_SHORT).show()
                 }
                 is Result.Loading -> {
-                    binding.progressBar5.isVisible = it.isLoading
+                    binding.LoadingBar.isVisible = it.isLoading
                 }
             }
         }
@@ -96,7 +96,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
             R.id.setting -> {
-                Intent(this, SettingActivity::class.java).apply {
+                Intent(this, ThemeActivity::class.java).apply {
                     startActivity(this)
                 }
             }

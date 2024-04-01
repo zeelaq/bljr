@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@id/tab" />
 
     <ProgressBar
-        android:id="@+id/progressBar5"
+        android:id="@+id/LoadingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/image"
@@ -104,6 +104,6 @@
         android:src="@drawable/baseline_favorite_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="@color/teal_200" />
+        app:backgroundTint="@color/yellow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

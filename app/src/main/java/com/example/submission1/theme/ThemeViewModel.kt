@@ -1,13 +1,13 @@
-package com.example.submission1.setting
+package com.example.submission1.theme
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.submission1.data.local.SettingPreferences
+import com.example.submission1.data.local.PreferencesTheme
 import kotlinx.coroutines.launch
 
-class SettingViewModel(private val pref: SettingPreferences) : ViewModel() {
+class ThemeViewModel(private val pref: PreferencesTheme) : ViewModel() {
 
     fun getTheme() = pref.getThemeSetting().asLiveData()
 
@@ -17,7 +17,7 @@ class SettingViewModel(private val pref: SettingPreferences) : ViewModel() {
         }
     }
 
-    class Factory(private val pref: SettingPreferences) : ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = SettingViewModel(pref) as T
+    class Factory(private val pref: PreferencesTheme) : ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = ThemeViewModel(pref) as T
     }
 }

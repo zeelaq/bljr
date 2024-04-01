@@ -1,17 +1,17 @@
-package com.example.submission1.setting
+package com.example.submission1.theme
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.submission1.data.local.SettingPreferences
+import com.example.submission1.data.local.PreferencesTheme
 import com.example.submission1.databinding.ActivitySettingBinding
 
-class SettingActivity : AppCompatActivity() {
+class ThemeActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
-    private val viewModel by viewModels<SettingViewModel> {
-        SettingViewModel.Factory(SettingPreferences(this))
+    private val viewModel by viewModels<ThemeViewModel> {
+        ThemeViewModel.Factory(PreferencesTheme(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,10 +22,10 @@ class SettingActivity : AppCompatActivity() {
 
         viewModel.getTheme().observe(this) {
             if (it) {
-                binding.switchTheme.text = "Dark Theme"
+                binding.switchTheme.text = "Tema Gelap"
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
-                binding.switchTheme.text = "Light Theme"
+                binding.switchTheme.text = "Tema Terang"
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
             binding.switchTheme.isChecked = it

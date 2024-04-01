@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.submission1.data.local.DbModul
-import com.example.submission1.data.model.ResponseUserGithub
-import com.example.submission1.data.remote.ApiClient
+import com.example.submission1.data.local.DatabaseConfig
+import com.example.submission1.data.network.ApiClient
+import com.example.submission1.data.responsemodel.ResponseUserGithub
 import com.example.submission1.utils.Result
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class DetailViewModel(private val db: DbModul) : ViewModel() {
+class DetailViewModel(private val db: DatabaseConfig) : ViewModel() {
 
     val resultDetailUser = MutableLiveData<Result>()
     val resultFollowersUser = MutableLiveData<Result>()
@@ -113,7 +113,7 @@ class DetailViewModel(private val db: DbModul) : ViewModel() {
         }
     }
 
-    class Factory(private val db: DbModul) : ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = DetailViewModel(db) as T
+    class Factory(private val database: DatabaseConfig) : ViewModelProvider.NewInstanceFactory() { //saya samakan seperti di favorite view model
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = DetailViewModel(database) as T
     }
 }

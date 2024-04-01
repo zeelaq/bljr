@@ -2,13 +2,13 @@ package com.example.submission1.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.submission1.data.local.DbModul
+import com.example.submission1.data.local.DatabaseConfig
 
-class FavoriteViewModel(private val dbModul: DbModul) : ViewModel() {
+class FavoriteViewModel(private val DataBaseComponent: DatabaseConfig) : ViewModel() {
 
-    fun getUserFavorite() = dbModul.userDao.loadAll()
+    fun getFavoriteUser() = DataBaseComponent.userDao.loadAll()
 
-    class Factory(private val db: DbModul) : ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = FavoriteViewModel(db) as T
+    class Factory(private val database: DatabaseConfig) : ViewModelProvider.NewInstanceFactory() { //properti penyimpanan
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = FavoriteViewModel(database) as T //override dari viewmodelprovider
     }
 }

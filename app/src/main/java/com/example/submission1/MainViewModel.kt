@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.submission1.data.local.SettingPreferences
-import com.example.submission1.data.remote.ApiClient
+import com.example.submission1.data.local.PreferencesTheme
+import com.example.submission1.data.network.ApiClient
 import com.example.submission1.utils.Result
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val preferences: SettingPreferences) : ViewModel() {
+class MainViewModel(private val preferences: PreferencesTheme) : ViewModel() {
 
     val resultUser = MutableLiveData<Result>()
     val resultFollowersUser = MutableLiveData<Result>()
@@ -114,7 +114,7 @@ class MainViewModel(private val preferences: SettingPreferences) : ViewModel() {
         }
     }
 
-    class Factory(private val preferences: SettingPreferences) :
+    class Factory(private val preferences: PreferencesTheme) :
         ViewModelProvider.NewInstanceFactory() {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T =

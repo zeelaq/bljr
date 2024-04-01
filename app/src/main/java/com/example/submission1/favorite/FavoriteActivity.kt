@@ -7,13 +7,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.submission1.UserAdapter
-import com.example.submission1.data.local.DbModul
+import com.example.submission1.data.local.DatabaseConfig
 import com.example.submission1.databinding.ActivityFavoriteBinding
 import com.example.submission1.detail.DetailActivity
 
 class FavoriteActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityFavoriteBinding
-    private val adapter by lazy {
+    private val Useradapter by lazy {
         UserAdapter { user ->
             Intent(this, DetailActivity:: class.java).apply {
                 putExtra("item", user)
@@ -22,8 +23,8 @@ class FavoriteActivity : AppCompatActivity() {
         }
     }
 
-    private val viewModel by viewModels<FavoriteViewModel> {
-        FavoriteViewModel.Factory(DbModul(this))
+    private val viewModelFavorit by viewModels<FavoriteViewModel> {
+        FavoriteViewModel.Factory(DatabaseConfig(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +34,10 @@ class FavoriteActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.rvFavorite.layoutManager = LinearLayoutManager(this)
-        binding.rvFavorite.adapter = adapter
+        binding.rvFavorite.adapter = Useradapter
 
-        viewModel.getUserFavorite().observe(this) {
-            adapter.setData(it)
+        viewModelFavorit.getFavoriteUser().observe(this) {
+            Useradapter.setData(it)
         }
     }
 

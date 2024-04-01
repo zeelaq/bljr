@@ -1,4 +1,4 @@
-package com.example.submission1.data.model
+package com.example.submission1.data.responsemodel
 
 data class ResponseDetailUser(
     val avatar_url: String,

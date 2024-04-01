@@ -1,4 +1,4 @@
-package com.example.submission1.data.remote
+package com.example.submission1.data.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.example.submission1.data.model.ResponseUserGithub
+import com.example.submission1.data.responsemodel.ResponseUserGithub
 import com.example.submission1.databinding.ItemUserBinding
 
 class UserAdapter (

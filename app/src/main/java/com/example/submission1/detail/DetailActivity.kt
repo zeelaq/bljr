@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.submission1.R
-import com.example.submission1.data.local.DbModul
-import com.example.submission1.data.model.ResponseDetailUser
-import com.example.submission1.data.model.ResponseUserGithub
+import com.example.submission1.data.local.DatabaseConfig
+import com.example.submission1.data.responsemodel.ResponseDetailUser
+import com.example.submission1.data.responsemodel.ResponseUserGithub
 import com.example.submission1.databinding.ActivityDetailBinding
 import com.example.submission1.detail.follow.FollowsFragment
 import com.example.submission1.utils.Result
@@ -26,7 +26,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val viewModel by viewModels<DetailViewModel> {
-        DetailViewModel.Factory(DbModul(this))
+        DetailViewModel.Factory(DatabaseConfig(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val item = intent.getParcelableExtra<ResponseUserGithub.Item>("item")
+        val item = intent.getParcelableExtra<ResponseUserGithub.Item>("akun")
         val username = item?.login ?: ""
 
         viewModel.resultDetailUser.observe(this) {
@@ -55,7 +55,7 @@ class DetailActivity : AppCompatActivity() {
                     Toast.makeText(this, it.exception.message.toString(), Toast.LENGTH_SHORT).show()
                 }
                 is Result.Loading -> {
-                    binding.progressBar5.isVisible = it.isLoading
+                    binding.LoadingBar.isVisible = it.isLoading
                 }
             }
         }

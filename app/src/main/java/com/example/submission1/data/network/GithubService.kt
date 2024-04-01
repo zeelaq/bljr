@@ -1,7 +1,7 @@
-package com.example.submission1.data.remote
+package com.example.submission1.data.network
 
-import com.example.submission1.data.model.ResponseDetailUser
-import com.example.submission1.data.model.ResponseUserGithub
+import com.example.submission1.data.responsemodel.ResponseDetailUser
+import com.example.submission1.data.responsemodel.ResponseUserGithub
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
