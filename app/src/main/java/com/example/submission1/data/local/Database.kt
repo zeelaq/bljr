@@ -11,24 +11,20 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
-        private const val DATABASE_NAME = "AppDatabase.db"
-
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
+        @JvmStatic
         fun getDatabase(context: Context): AppDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    DATABASE_NAME
-                )
-                    .fallbackToDestructiveMigration() // Menghindari kehilangan data
-                    .build()
-                INSTANCE = instance
-                instance
+            if (INSTANCE == null) {
+                synchronized(AppDatabase::class.java) {
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java, "user_database" ).fallbackToDestructiveMigration()
+                        .build()
+                }
             }
+            return INSTANCE as AppDatabase
         }
     }
-
 }
