@@ -20,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
                 synchronized(AppDatabase::class.java) {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
-                        AppDatabase::class.java, "user_database" ).fallbackToDestructiveMigration()
+                        AppDatabase::class.java, "githubuser" ).fallbackToDestructiveMigration()
                         .build()
                 }
             }
